@@ -1,8 +1,9 @@
-package com.seleniumsimplified.webdriver;
+package com.seleniumsimplified.webdriver.driver;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,12 +43,10 @@ public class FirstHtmlUnitDriverTest {
 
         System.out.println(((HtmlUnitDriver) driver).getBrowserVersion());
         System.out.println(driver.getCurrentUrl());
-        System.out.println(driver.getPageSource());
         System.out.println(((HtmlUnitDriver) driver).getCapabilities());
         System.out.println(((HtmlUnitDriver) driver).getKeyboard());
         System.out.println(((HtmlUnitDriver) driver).getMouse());
         System.out.println(driver.getWindowHandle());
-
 
         assertTrue(driver.getTitle().startsWith("Selenium Simplified"));
 

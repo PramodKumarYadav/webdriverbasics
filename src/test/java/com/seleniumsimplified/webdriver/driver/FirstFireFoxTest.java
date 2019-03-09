@@ -1,9 +1,9 @@
-package com.seleniumsimplified.webdriver;
+package com.seleniumsimplified.webdriver.driver;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
