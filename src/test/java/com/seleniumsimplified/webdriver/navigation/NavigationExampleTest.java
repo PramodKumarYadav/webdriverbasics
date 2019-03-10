@@ -1,9 +1,9 @@
 package com.seleniumsimplified.webdriver.navigation;
 
-import org.eclipse.jetty.io.EndPoint;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
