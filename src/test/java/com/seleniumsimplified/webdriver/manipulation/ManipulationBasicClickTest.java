@@ -1,20 +1,25 @@
-package com.seleniumsimplified.webdriver.interrogation;
+package com.seleniumsimplified.webdriver.manipulation;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FindByCSSTest {
+public class ManipulationBasicClickTest {
 
     private static final String PROTOCOL = "http";
     private static final String DOMAIN = "www.compendiumdev.co.uk";
@@ -29,32 +34,60 @@ public class FindByCSSTest {
 
     @AfterAll
     public static void quitDriver() {
+
         driver.quit();
     }
 
-    @Test
-    public void pathNavigationIDinCSSselctor() throws MalformedURLException {
+    @BeforeEach
+    public void setupTestURL() throws MalformedURLException {
 
-        String endPoint = "/selenium/find_by_playground.php";
+        String endPoint = "/selenium/basic_ajax.html";
         URL url = new URL(PROTOCOL,DOMAIN,endPoint);
 
         driver.navigate().to(url);
+    }
+    @Test
+    public void sanityCSStest() {
 
-        WebElement element = driver.findElement(By.id("p31"));
+        // Find the element 3. <option value="3">Server</option> #combo1 > option:nth-child(3)
+        WebElement element = driver.findElement(By.cssSelector("#combo1 > option:nth-child(3)"));
+        // WebElement element = driver.findElement(By.cssSelector("#combo1 > option:nth-child(3)"));
         System.out.println(element.getText());
+        element.click();
 
-        List<WebElement> elements = driver.findElements(By.cssSelector("#p31"));
-        System.out.println(elements.size());
-        assertEquals("pName31",elements.get(0).getAttribute("name"));
+        driver.findElement(By.cssSelector("#combo2 > option:nth-child(4)")).click();
+        System.out.println(element.getText());
+        element.click();
+    }
+    @Test
+    public void myFirstManipulation() {
 
+        WebElement element = driver.findElement(By.cssSelector("#combo1 > option:nth-child(3)"));
+        System.out.println(element.getText());
+        element.click();
+
+        new WebDriverWait(driver,10,50).until(ExpectedConditions.titleIs("Basic Ajax"));
+        // #combo2 > option:nth-child(4)
+        element = driver.findElement(By.cssSelector("#combo2 > option:nth-child(4)"));
+        System.out.println(element.getText());
+        element.click();
+
+        new WebDriverWait(driver,10,50).until(ExpectedConditions.titleIs("Basic Ajax"));
+
+        element = driver.findElement(By.name("submitbutton"));
+        System.out.println(element.getText());
+        element.click();
+
+        new WebDriverWait(driver,10,50).until(ExpectedConditions.titleIs("Processed Form Details"));
+
+        element = driver.findElement(By.cssSelector("#_valuelanguage_id"));
+        System.out.println(element.getText());
+        element.click();
+
+        assertThat(driver.findElement(By.cssSelector("#_valuelanguage_id")).getText(),is("23"));
     }
     @Test
     public void pathNavigationFindName() throws MalformedURLException {
-
-        String endPoint = "/selenium/find_by_playground.php";
-        URL url = new URL(PROTOCOL,DOMAIN,endPoint);
-
-        driver.navigate().to(url);
 
         List<WebElement> elements = driver.findElements(By.name("ulName1"));
         System.out.println(elements.size());
