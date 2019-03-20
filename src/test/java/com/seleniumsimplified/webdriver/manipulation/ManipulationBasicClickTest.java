@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,7 +28,8 @@ public class ManipulationBasicClickTest {
     private String hostURL = PROTOCOL + "://" + DOMAIN;
 
     static WebDriver driver;
-    static WebDriverWait wait;
+
+    WebDriverWait wait;
 
     @BeforeAll
     public static void createDriver() {
@@ -61,7 +63,10 @@ public class ManipulationBasicClickTest {
         element.click();
 
         // Wait for element to be available
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("body > form > #combo2 > option:nth-child(4)")));
+        // Note: Not using non static import means, you need to know below method to write it.
+        // One of the way could be to import both static and non-static class.
+        // Non - static to find all options. Static to make it more readable.
+        wait.until(presenceOfElementLocated(By.cssSelector("body > form > #combo2 > option:nth-child(4)")));
 
         // #combo2 > option:nth-child(4) body > form
         element = driver.findElement(By.cssSelector("body > form > #combo2 > option:nth-child(4)"));
@@ -69,6 +74,7 @@ public class ManipulationBasicClickTest {
         element.click();
 
         // Wait for element to be clickable
+        // Note: Using expected conditions will give you all the options that you can use.
         wait.until(ExpectedConditions.elementToBeClickable(By.name("submitbutton")));
 
         element = driver.findElement(By.name("submitbutton"));
@@ -76,7 +82,7 @@ public class ManipulationBasicClickTest {
         element.click();
 
         // Wait for element to be visibile
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#_valuelanguage_id")));
+        wait.until(visibilityOfElementLocated(By.cssSelector("#_valuelanguage_id")));
 
         element = driver.findElement(By.cssSelector("#_valuelanguage_id"));
         System.out.println(element.getText());
