@@ -1,4 +1,4 @@
-package com.seleniumsimplified.webdriver;
+package com.seleniumsimplified.webdriver.cookies;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

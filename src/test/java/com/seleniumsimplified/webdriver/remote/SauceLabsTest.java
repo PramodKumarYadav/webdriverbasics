@@ -47,10 +47,9 @@ public class SauceLabsTest {
 
         try {
             // add url to environment variables to avoid releasing with source
+            // sauceURL = "http://PramodKumarYadav:bdd64624-cfae-45aa-98b8-0975c0a02798@ondemand.saucelabs.com:80/wd/hub";
             String sauceURL = System.getenv("SAUCELABS_URL");
             System.out.println(sauceURL);
-
-//            sauceURL = "http://PramodKumarYadav:bdd64624-cfae-45aa-98b8-0975c0a02798@ondemand.saucelabs.com:80/wd/hub";
 
             driver = new RemoteWebDriver(
                     new URL(sauceURL),
@@ -61,6 +60,7 @@ public class SauceLabsTest {
     }
     @AfterAll
     public static void stopSauce(){
+
         driver.quit();
     }
     @Test
