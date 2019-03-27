@@ -42,7 +42,12 @@
             <version>2.33.1</version>
             <scope>test</scope>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.github.detro/ghostdriver -->
+        <dependency>
+            <groupId>com.github.detro.ghostdriver</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.0.4</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
