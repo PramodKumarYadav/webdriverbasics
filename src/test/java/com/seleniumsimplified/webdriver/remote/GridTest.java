@@ -22,6 +22,9 @@ public class GridTest {
 
     @BeforeAll
     public static void connectToGrid(){
+
+//        DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+//        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setCapability("platform", Platform.WINDOWS);
 

@@ -1,5 +1,7 @@
 package com.seleniumsimplified.webdriver.drivers;
 
+import com.seleniumsimplified.webdriver.manager.MyDriver;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -18,25 +20,27 @@ public class ChromeDriverTest {
     // to remove this error start the chrome driver with
     // args "test-type"
 
+    public  static WebDriver driver;
 
     @BeforeAll
     public static void setupTheChromeDriverSystemProperty(){
 
-        // tell webdriver where to find the chrome driver
-        String currentDir = System.getProperty("user.dir");
-        System.out.println(currentDir);
-
-        String chromeDriverLocation = currentDir + "/../tools/chromedriver/chromedriver.exe";
-        System.out.println(chromeDriverLocation);
-
-        // if chrome is on your path then you do not need to set the location
-        // if this test fails then Chrome might not be on your path and you may need to configure the property above
-//        System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
-
-
-
+        driver = MyDriver.getBrowser("EDGE");
+        // HTMLUNIT  GOOGLECHROME EDGE
     }
 
+    @AfterAll
+    public static void quitDriver(){
+
+        driver.quit();
+    }
+
+    @Test
+    public void basicChromeDriverUsage(){
+
+        driver.get("http://www.compendiumdev.co.uk/selenium/basic_html_form.html");
+        assertThat(driver.getTitle(), is("HTML Form Elements"));
+    }
 
     // You may see an error regarding --ignore-certificate-errors when using Chrome v35 or above
     // as the following test does not use the args "test-type"

@@ -33,6 +33,7 @@ public class Driver extends Thread{
     private static WebDriver aDriver=null;
     private static long browserStartTime = 0L;
     private static long savedTimecount = 0L;
+
     public static final long DEFAULT_TIMEOUT_SECONDS = 10;
     private static boolean avoidRecursiveCall=false;
     public static final String BROWSER_PROPERTY_NAME = "selenium2basics.webdriver";
@@ -55,17 +56,18 @@ public class Driver extends Thread{
     //private static final  String DEFAULT_BROWSER = "SAFARI";
     private static final  String DEFAULT_BROWSER = "GOOGLECHROME";
 
+    // default for browsermob localhost:8080
+    // default for fiddler: localhost:8888
+
+    public static String PROXYHOST="localhost";
+    public static String PROXYPORT="8888";
+    public static String PROXY=PROXYHOST+":"+PROXYPORT;
+
     public enum BrowserName{FIREFOX, GOOGLECHROME, SAUCELABS, IE, HTMLUNIT, GRID, FIREFOXPORTABLE, FIREFOXMARIONETTE, APPIUM, EDGE, SAFARI}
 
     public static BrowserName currentDriver;
 
     private static BrowserName useThisDriver = null;
-
-    // default for browsermob localhost:8080
-    // default for fiddler: localhost:8888
-    public static String PROXYHOST="localhost";
-    public static String PROXYPORT="8888";
-    public static String PROXY=PROXYHOST+":"+PROXYPORT;
 
     public static void set(BrowserName aBrowser){
         useThisDriver = aBrowser;
