@@ -25,8 +25,7 @@ public class ChromeDriverTest {
     @BeforeAll
     public static void setupTheChromeDriverSystemProperty(){
 
-        driver = MyDriver.getBrowser("EDGE");
-        // HTMLUNIT  GOOGLECHROME EDGE
+        driver = MyDriver.getDriver();
     }
 
     @AfterAll

@@ -13,23 +13,24 @@ public class MyDriver {
 
     private static WebDriver myDriver = null;
 
-    private String browserName;
-
-    public enum Browsers{FIREFOX, GOOGLECHROME, SAUCELABS, IE, HTMLUNIT, GRID, FIREFOXPORTABLE, FIREFOXMARIONETTE, APPIUM, EDGE, SAFARI}
+    private static String browserName;
+//    private static String browserName = "GOOGLECHROME";
 
     public MyDriver(){
-        this("GOOGLECHROME");
+        this("HTMLUNIT");
     }
-    private MyDriver(String browserName){
+
+    public MyDriver(String browserName){
         this.browserName = browserName;
     }
 
-    private String getBrowserName() {
+    public static String getBrowserName() {
         return browserName;
     }
 
-    public static WebDriver getBrowser(String browserName) {
+    public static WebDriver getDriver() {
 
+        System.out.println("Creating driver for : " + browserName);
         switch (browserName) {
 
             case "FIREFOX":
@@ -61,6 +62,12 @@ public class MyDriver {
                 //  options.addExtensions(new File("/path/to/extension.crx"));  // If you want to add extensions.
                 options.addArguments("test-type");
                 myDriver = new ChromeDriver(options);
+                break;
+
+            default:
+
+                // HtmlUnitDriver added as a maven dependency - no paths required
+                myDriver = new HtmlUnitDriver(true);  // enable javascript
                 break;
         }
 

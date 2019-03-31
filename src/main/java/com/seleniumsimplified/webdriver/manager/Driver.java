@@ -37,7 +37,9 @@ public class Driver extends Thread{
     public static final long DEFAULT_TIMEOUT_SECONDS = 10;
     private static boolean avoidRecursiveCall=false;
     public static final String BROWSER_PROPERTY_NAME = "selenium2basics.webdriver";
-
+    private static final  String DEFAULT_BROWSER = "GOOGLECHROME";
+    //private static final  String DEFAULT_BROWSER = "FIREFOX";
+    //private static final  String DEFAULT_BROWSER = "SAFARI";
 
     /*
         When I started the course, the default browser was Firefox.
@@ -52,9 +54,7 @@ public class Driver extends Thread{
 
         19th October 2016
      */
-    //private static final  String DEFAULT_BROWSER = "FIREFOX";
-    //private static final  String DEFAULT_BROWSER = "SAFARI";
-    private static final  String DEFAULT_BROWSER = "GOOGLECHROME";
+
 
     // default for browsermob localhost:8080
     // default for fiddler: localhost:8888
