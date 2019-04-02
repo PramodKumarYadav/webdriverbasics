@@ -1,5 +1,6 @@
 package com.seleniumsimplified.webdriver.manager;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,30 +9,37 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 public class MyDriver {
 
     private static WebDriver myDriver = null;
 
-    private static String browserName;
+    private static Browsers browserName;
 //    private static String browserName = "GOOGLECHROME";
 
     public MyDriver(){
-        this("HTMLUNIT");
+        this(Browsers.HTMLUNIT);
     }
 
-    public MyDriver(String browserName){
+    public MyDriver(Browsers browserName){
         this.browserName = browserName;
     }
 
     public static String getBrowserName() {
-        return browserName;
+        return browserName.name();
     }
 
     public static WebDriver getDriver() {
 
         System.out.println("Creating driver for : " + browserName);
-        switch (browserName) {
+        switch (browserName.name()) {
 
             case "FIREFOX":
 
@@ -39,9 +47,7 @@ public class MyDriver {
                 myDriver = new FirefoxDriver();
                 break;
 
-            case "HTMLUNIT":
-
-                // HtmlUnitDriver added as a maven dependency - no paths required
+            case "HTMLUNIT":  // HtmlUnitDriver added as a maven dependency - no paths required
                 myDriver = new HtmlUnitDriver(true);  // enable javascript
                 break;
 
@@ -63,7 +69,56 @@ public class MyDriver {
                 options.addArguments("test-type");
                 myDriver = new ChromeDriver(options);
                 break;
+            case "SAUCELABS":
+                // I would like to make the below code more dynamic by adding list of below available items and ...
+                // Randomly selected valid list from a random function to test it.
+                DesiredCapabilities firefoxCapabilities = DesiredCapabilities.firefox();
+                firefoxCapabilities.setCapability("version", "5");
+                firefoxCapabilities.setCapability("platform", Platform.XP);
+                try {
+                    // add url to environment variables to avoid releasing with source
+                    String sauceURL = System.getenv("SAUCELABS_URL");
+                    myDriver = new RemoteWebDriver(
+                            new URL(sauceURL),
+                            firefoxCapabilities);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "GRID":
 
+                String gridBrowser = EnvironmentPropertyReader.getPropertyOrEnv("WEBDRIVER_GRID_BROWSER", "firefox");
+                String gridBrowserVersion = EnvironmentPropertyReader.getPropertyOrEnv("WEBDRIVER_GRID_BROWSER_VERSION", "");
+                String gridBrowserPlatform = EnvironmentPropertyReader.getPropertyOrEnv("WEBDRIVER_GRID_BROWSER_PLATFORM", "");
+
+                DesiredCapabilities gridCapabilities = new DesiredCapabilities();
+                gridCapabilities.setBrowserName(gridBrowser);
+                if(gridBrowserVersion.length()>0)
+                    gridCapabilities.setVersion(gridBrowserVersion);
+                if(gridBrowserPlatform.length()>0)
+                    gridCapabilities.setPlatform(Platform.fromString(gridBrowserPlatform));
+
+                // Allow adding any capability defined as an environment variable
+                // extra environment capabilities start with "WEBDRIVER_GRID_CAP_X_"
+
+                // e.g. WEBDRIVER_GRID_CAP_X_os_version XP
+                // e.g. WEBDRIVER_GRID_CAP_X_browserstack.debug true
+                Map<String, String> anyExtraCapabilities = System.getenv();
+                addAnyValidExtraCapabilityTo(gridCapabilities, anyExtraCapabilities.keySet());
+
+                // Now check properties for extra capabilities
+                Properties anyExtraCapabilityProperties = System.getProperties();
+                addAnyValidExtraCapabilityTo(gridCapabilities, anyExtraCapabilityProperties.stringPropertyNames());
+
+
+                try {
+                    // add url to environment variables to avoid releasing with source
+                    String gridURL = EnvironmentPropertyReader.getPropertyOrEnv("WEBDRIVER_GRID_URL", "http://localhost:4444/wd/hub");
+                    myDriver = new RemoteWebDriver(new URL(gridURL), gridCapabilities);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
 
                 // HtmlUnitDriver added as a maven dependency - no paths required
@@ -73,5 +128,23 @@ public class MyDriver {
 
         return myDriver;
 
+    }
+    private static void addAnyValidExtraCapabilityTo(DesiredCapabilities gridCapabilities, Set<String> possibleCapabilityKeys) {
+
+        String extraCapabilityPrefix = "WEBDRIVER_GRID_CAP_X_";
+
+        for(String capabilityName : possibleCapabilityKeys){
+
+            if(capabilityName.startsWith(extraCapabilityPrefix)){
+
+                String capabilityValue = EnvironmentPropertyReader.getPropertyOrEnv(capabilityName, "");
+
+                if(capabilityValue.length()>0){
+                    String capability = capabilityName.replaceFirst(extraCapabilityPrefix,"");
+                    System.out.println("To Set Capability " + capability + " with value " + capabilityValue);
+                    gridCapabilities.setCapability(capability, capabilityValue);
+                }
+            }
+        }
     }
 }

@@ -36,13 +36,13 @@ public class DriverFromClassTest {
     public void defaultDriverUsage(){
         myDriver= new MyDriver();
         driver = myDriver.getDriver();
-
+        System.out.println(System.getenv());
         driver.get("http://www.compendiumdev.co.uk/selenium/basic_html_form.html");
         assertThat(driver.getTitle(), is("HTML Form Elements"));
     }
     @Test
     public void basicEdgeDriverUsage(){
-        myDriver= new MyDriver(Browsers.EDGE.name());
+        myDriver= new MyDriver(Browsers.EDGE);
         driver = myDriver.getDriver();
 
         driver.get("http://www.compendiumdev.co.uk/selenium/basic_html_form.html");
@@ -51,7 +51,7 @@ public class DriverFromClassTest {
 
     @Test
     public void basicChromeDriverUsage(){
-        myDriver= new MyDriver(Browsers.GOOGLECHROME.name());
+        myDriver= new MyDriver(Browsers.GOOGLECHROME);
         driver = myDriver.getDriver();
 
         driver.get("http://www.compendiumdev.co.uk/selenium/basic_html_form.html");
