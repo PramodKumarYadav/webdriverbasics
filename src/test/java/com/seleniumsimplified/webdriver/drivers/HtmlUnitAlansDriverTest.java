@@ -1,7 +1,7 @@
 package com.seleniumsimplified.webdriver.drivers;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
-//import com.seleniumsimplified.webdriver.manager.Driver;
+//import com.seleniumsimplified.webdriver.manager.AlansDriver;
 //import com.seleniumsimplified.webdriver.manager.ProxyPort;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class HtmlUnitDriverTest {
+public class HtmlUnitAlansDriverTest {
 
     // make sure you have HtmlUnitDriver in your pom.xml
     //https://github.com/SeleniumHQ/htmlunit-driver
@@ -68,16 +68,16 @@ public class HtmlUnitDriverTest {
 //    public void basicHTMLUnitDriverProxyCapabilities(){
 //
 //        //run this only if proxy is running e.g. Fiddler or BrowserMobProxy or BurpSuite etc.
-//        if(ProxyPort.inUse(Driver.PROXYHOST, Driver.PROXYPORT)) {
+//        if(ProxyPort.inUse(AlansDriver.PROXYHOST, AlansDriver.PROXYPORT)) {
 //
 //            DesiredCapabilities capabilities = new DesiredCapabilities();
 //            // setting this to false does not impact firefox
 //            capabilities.setJavascriptEnabled(true);
 //
 //            org.openqa.selenium.Proxy proxy = new org.openqa.selenium.Proxy();
-//            proxy.setHttpProxy(Driver.PROXY)
-//                    .setFtpProxy(Driver.PROXY)
-//                    .setSslProxy(Driver.PROXY);
+//            proxy.setHttpProxy(AlansDriver.PROXY)
+//                    .setFtpProxy(AlansDriver.PROXY)
+//                    .setSslProxy(AlansDriver.PROXY);
 //            capabilities.setCapability(CapabilityType.PROXY, proxy);
 //
 //            WebDriver htmlunit = new HtmlUnitDriver(capabilities);
@@ -91,7 +91,7 @@ public class HtmlUnitDriverTest {
 //        }else{
 //            System.out.println(
 //                    "No Proxy seemed to be running on " +
-//                            Driver.PROXY +
+//                            AlansDriver.PROXY +
 //                            " so didn't run test basicHTMLUnitDriverProxyCapabilities");
 //        }
 //    }

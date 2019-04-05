@@ -1,6 +1,6 @@
 package com.seleniumsimplified.webdriver.drivers;
 
-import com.seleniumsimplified.webdriver.manager.MyDriver;
+import com.seleniumsimplified.webdriver.manager.Driver;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,9 +12,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * cover nuances with the Chrome Driver
+ * cover nuances with the Chrome AlansDriver
  */
-public class ChromeDriverTest {
+public class ChromeAlansDriverTest {
 
     // As of Chrome v35, it reports an error regarding --ignore-certificate-errors
     // to remove this error start the chrome driver with
@@ -25,7 +25,7 @@ public class ChromeDriverTest {
     @BeforeAll
     public static void setupTheChromeDriverSystemProperty(){
 
-        driver = MyDriver.getDriver();
+        driver = Driver.getDriver();
     }
 
     @AfterAll
@@ -89,14 +89,14 @@ public class ChromeDriverTest {
 //    public void basicChromeDriverProxy(){
 //
 //        //run this only if proxy is running e.g. Fiddler or BrowserMobProxy or BurpSuite etc.
-//        if(ProxyPort.inUse(Driver.PROXYHOST, Driver.PROXYPORT)) {
+//        if(ProxyPort.inUse(AlansDriver.PROXYHOST, AlansDriver.PROXYPORT)) {
 //
 //            // http://peter.sh/experiments/chromium-command-line-switches/
 //            ChromeOptions options = new ChromeOptions();
 //            options.addArguments("test-type");
 //            options.addArguments("disable-plugins");
 //            options.addArguments("disable-extensions");
-//            options.addArguments("proxy-server=" + Driver.PROXY);
+//            options.addArguments("proxy-server=" + AlansDriver.PROXY);
 //
 //            WebDriver chrome = new ChromeDriver(options);
 //
@@ -109,7 +109,7 @@ public class ChromeDriverTest {
 //        }else{
 //            System.out.println(
 //                    "No Proxy seemed to be running on " +
-//                            Driver.PROXY +
+//                            AlansDriver.PROXY +
 //                            " so didn't run test basicChromeDriverProxy");
 //        }
 //    }

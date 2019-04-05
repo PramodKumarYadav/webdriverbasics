@@ -1,7 +1,7 @@
 package com.seleniumsimplified.webdriver.screenshots;
 
 
-import com.seleniumsimplified.webdriver.manager.Driver;
+import com.seleniumsimplified.webdriver.manager.AlansDriver;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.HasCapabilities;
@@ -25,16 +25,16 @@ public class CanWeTakeScreenshotsTest {
     Because these tests change the driver, when run from IDE
     We want to remember the current driver and restore after all tests are run
  */
-    private static Driver.BrowserName rememberDriver;
+    private static AlansDriver.BrowserName rememberDriver;
 
     @BeforeAll
     public static void storeCurrentBrowser(){
-        rememberDriver = Driver.currentDriver;
+        rememberDriver = AlansDriver.currentDriver;
     }
 
     @AfterAll
     public static void restoreDriver(){
-        Driver.set(rememberDriver);
+        AlansDriver.set(rememberDriver);
     }
 
     @BeforeEach
@@ -44,16 +44,16 @@ public class CanWeTakeScreenshotsTest {
         // and the tests have a guard to check if the capability is present
 
         // uncomment this line if you want to use firefox
-        //Driver.set(Driver.BrowserName.FIREFOX);
+        //AlansDriver.set(AlansDriver.BrowserName.FIREFOX);
     }
     @AfterEach
     public void quitDriver(){
-        Driver.quit();
+        AlansDriver.quit();
     }
     @Test
     public void canWeTakeAScreenshotCapabilitiesStyle(){
 
-        WebDriver driver = Driver.get("http://seleniumsimplified.com");
+        WebDriver driver = AlansDriver.get("http://seleniumsimplified.com");
 
         if(((HasCapabilities)driver).getCapabilities().is(CapabilityType.TAKES_SCREENSHOT)){
             TakesScreenshot snapper = (TakesScreenshot)driver;
@@ -63,16 +63,16 @@ public class CanWeTakeScreenshotsTest {
 
             // use these lines in debug mode
             System.out.println("Temp file written to " + tempImageFile.getAbsolutePath());
-            Driver.get("File://"+ tempImageFile.getAbsolutePath());
+            AlansDriver.get("File://"+ tempImageFile.getAbsolutePath());
         }else{
-            fail("Driver did not support screenshots");
+            fail("AlansDriver did not support screenshots");
         }
     }
 
     @Test
     public void canWeTakeAScreenshotExceptionStyle(){
 
-        WebDriver driver = Driver.get("http://seleniumsimplified.com");
+        WebDriver driver = AlansDriver.get("http://seleniumsimplified.com");
 
         try{
             TakesScreenshot snapper = (TakesScreenshot)driver;
@@ -82,20 +82,20 @@ public class CanWeTakeScreenshotsTest {
 
             // use these lines in debug mode
             System.out.println("Temp file written to " + tempImageFile.getAbsolutePath());
-            Driver.get("File://"+ tempImageFile.getAbsolutePath());
+            AlansDriver.get("File://"+ tempImageFile.getAbsolutePath());
 
         }catch(ClassCastException e){
             // if we cannot cast it to TakesScreenshot we will get a ClassCastException
             System.out.println(e);
-            fail("Driver did not support screenshots");
+            fail("AlansDriver did not support screenshots");
         }
     }
 
     @Test
     public void htmlUnitDoesNotDoScreenshotsViaCapabilities(){
-        Driver.set(Driver.BrowserName.HTMLUNIT);
+        AlansDriver.set(AlansDriver.BrowserName.HTMLUNIT);
         // using a different page because sometimes HTMLUnit driver doesn't like the javascript
-        WebDriver driver = Driver.get("http://compendiumdev.co.uk/selenium/testpages/find_by_playground.php");
+        WebDriver driver = AlansDriver.get("http://compendiumdev.co.uk/selenium/testpages/find_by_playground.php");
 
         HasCapabilities capabilityDriver = (HasCapabilities)driver;
 
@@ -106,9 +106,9 @@ public class CanWeTakeScreenshotsTest {
 
     @Test
     public void htmlUnitDoesNotDoScreenshotsViaException(){
-        Driver.set(Driver.BrowserName.HTMLUNIT);
+        AlansDriver.set(AlansDriver.BrowserName.HTMLUNIT);
         // using a different page because sometimes HTMLUnit driver doesn't like the javascript
-        WebDriver driver = Driver.get("http://compendiumdev.co.uk/selenium/testpages/find_by_playground.php");
+        WebDriver driver = AlansDriver.get("http://compendiumdev.co.uk/selenium/testpages/find_by_playground.php");
 
         try{
             TakesScreenshot snapper = (TakesScreenshot)driver;

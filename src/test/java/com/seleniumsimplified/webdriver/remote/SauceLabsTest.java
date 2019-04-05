@@ -1,6 +1,6 @@
 package com.seleniumsimplified.webdriver.remote;
 
-import com.seleniumsimplified.webdriver.manager.Driver;
+import com.seleniumsimplified.webdriver.manager.AlansDriver;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,8 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -83,7 +81,7 @@ public class SauceLabsTest {
     public void loadTheGreenPage(){
         driver.get("http://www.compendiumdev.co.uk/selenium/frames");
 
-        WebDriverWait wait = new WebDriverWait(driver, Driver.DEFAULT_TIMEOUT_SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, AlansDriver.DEFAULT_TIMEOUT_SECONDS);
 
         assertThat(driver.getTitle(), is("Frameset Example Title (Example 6)"));
 
@@ -106,7 +104,7 @@ public class SauceLabsTest {
     public void workWithTheIFrame(){
         driver.get("http://www.compendiumdev.co.uk/selenium/frames");
 
-        WebDriverWait wait = new WebDriverWait(driver,Driver.DEFAULT_TIMEOUT_SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, AlansDriver.DEFAULT_TIMEOUT_SECONDS);
 
         assertThat(driver.getTitle(), is("Frameset Example Title (Example 6)"));
 

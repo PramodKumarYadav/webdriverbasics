@@ -1,8 +1,7 @@
 package com.seleniumsimplified.webdriver.screenshots;
 
-import com.seleniumsimplified.webdriver.manager.Driver;
+import com.seleniumsimplified.webdriver.manager.AlansDriver;
 import org.apache.commons.io.FileUtils;
-import org.junit.*;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.OutputType;
@@ -30,16 +29,16 @@ public class PersistScreenshotsTest {
     Because these tests change the driver, when run from IDE
     We want to remember the current driver and restore after all tests are run
     */
-    private static Driver.BrowserName rememberDriver;
+    private static AlansDriver.BrowserName rememberDriver;
 
     @BeforeAll
     public static void storeCurrentBrowser(){
-        rememberDriver = Driver.currentDriver;
+        rememberDriver = AlansDriver.currentDriver;
     }
 
     @AfterAll
     public static void restoreDriver(){
-        Driver.set(rememberDriver);
+        AlansDriver.set(rememberDriver);
     }
     @BeforeEach
     public void configureBrowser(){
@@ -48,18 +47,18 @@ public class PersistScreenshotsTest {
         // and the tests have a guard to check if the capability is present
 
         // uncomment this line if you want to use firefox
-        //Driver.set(Driver.BrowserName.FIREFOX);
+        //AlansDriver.set(AlansDriver.BrowserName.FIREFOX);
     }
     @AfterEach
     public void quitDriver(){
-        Driver.quit();
+        AlansDriver.quit();
     }
 
     @Test
     public void persistOutputTypeFile() throws IOException {
         // this works well testing on a local machine
 
-        WebDriver driver = Driver.get("http://seleniumsimplified.com");
+        WebDriver driver = AlansDriver.get("http://seleniumsimplified.com");
 
         if(((HasCapabilities)driver).getCapabilities().is(CapabilityType.TAKES_SCREENSHOT)){
 
@@ -84,9 +83,9 @@ public class PersistScreenshotsTest {
 
             // use these lines in debug mode
             System.out.println("Temp file written to " + testTempImage.getAbsolutePath());
-            Driver.get("File://"+ testTempImage.getAbsolutePath());
+            AlansDriver.get("File://"+ testTempImage.getAbsolutePath());
         }else{
-            fail("Driver did not support screenshots");
+            fail("AlansDriver did not support screenshots");
         }
     }
 
@@ -95,7 +94,7 @@ public class PersistScreenshotsTest {
         // this works well testing on remote driver because
         // screenshot returned as a string to local machine
 
-        WebDriver driver = Driver.get("http://seleniumsimplified.com");
+        WebDriver driver = AlansDriver.get("http://seleniumsimplified.com");
 
         if(((HasCapabilities)driver).getCapabilities().is(CapabilityType.TAKES_SCREENSHOT)){
 
@@ -124,9 +123,9 @@ public class PersistScreenshotsTest {
 
             // use these lines in debug mode
             System.out.println("Temp file written to " + testTempImage.getAbsolutePath());
-            Driver.get("File://"+ testTempImage.getAbsolutePath());
+            AlansDriver.get("File://"+ testTempImage.getAbsolutePath());
         }else{
-            fail("Driver did not support screenshots");
+            fail("AlansDriver did not support screenshots");
         }
     }
 
@@ -135,7 +134,7 @@ public class PersistScreenshotsTest {
         // this works well testing on remote driver because
         // screenshot returned as a string to local machine
 
-        WebDriver driver = Driver.get("http://seleniumsimplified.com");
+        WebDriver driver = AlansDriver.get("http://seleniumsimplified.com");
 
         if(((HasCapabilities)driver).getCapabilities().is(CapabilityType.TAKES_SCREENSHOT)){
 
@@ -161,9 +160,9 @@ public class PersistScreenshotsTest {
 
             // use these lines in debug mode
             System.out.println("Temp file written to " + testTempImage.getAbsolutePath());
-            Driver.get("File://"+ testTempImage.getAbsolutePath());
+            AlansDriver.get("File://"+ testTempImage.getAbsolutePath());
         }else{
-            fail("Driver did not support screenshots");
+            fail("AlansDriver did not support screenshots");
         }
     }
 

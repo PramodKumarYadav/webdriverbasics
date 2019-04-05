@@ -1,7 +1,7 @@
 package com.seleniumsimplified.webdriver.screenshots;
 
 
-import com.seleniumsimplified.webdriver.manager.Driver;
+import com.seleniumsimplified.webdriver.manager.AlansDriver;
 import org.apache.commons.io.FileUtils;
 
 import org.junit.jupiter.api.AfterEach;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class ScreenShotsExampleTest {
         // and the tests have a guard to check if the capability is present
 
         // uncomment this line if you want to use firefox
-        //Driver.set(Driver.BrowserName.FIREFOX);
+        //AlansDriver.set(AlansDriver.BrowserName.FIREFOX);
     }
     @AfterEach
     public void quitDriver(){
@@ -42,7 +41,7 @@ public class ScreenShotsExampleTest {
 
         //driver = new FirefoxDriver();
         //driver.get("http://seleniumsimplified.com");
-        driver = Driver.get("http://seleniumsimplified.com");
+        driver = AlansDriver.get("http://seleniumsimplified.com");
 
         TakesScreenshot snapper = (TakesScreenshot)driver;
 

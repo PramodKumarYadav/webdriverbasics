@@ -1,6 +1,6 @@
 package com.seleniumsimplified.webdriver.alerts;
 
-import com.seleniumsimplified.webdriver.manager.Driver;
+import com.seleniumsimplified.webdriver.manager.AlansDriver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
@@ -17,7 +17,7 @@ public class AlertHandlingExercisesTest {
 
     @BeforeAll
     public static void setup(){
-        driver = Driver.get("http://compendiumdev.co.uk/selenium/" + "alerts.html");
+        driver = AlansDriver.get("http://compendiumdev.co.uk/selenium/" + "alerts.html");
     }
 
     @Test

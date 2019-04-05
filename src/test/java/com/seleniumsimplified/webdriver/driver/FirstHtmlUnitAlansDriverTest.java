@@ -9,7 +9,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FirstHtmlUnitDriverTest {
+public class FirstHtmlUnitAlansDriverTest {
 
     @Test
     public void testAppAssertTrue() {
