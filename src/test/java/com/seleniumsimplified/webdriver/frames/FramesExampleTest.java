@@ -2,20 +2,19 @@ package com.seleniumsimplified.webdriver.frames;
 
 import com.seleniumsimplified.webdriver.manager.Browsers;
 import com.seleniumsimplified.webdriver.manager.Driver;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class FramesFAQTest {
+public class FramesExampleTest {
 
     private static WebDriver driver;
 
@@ -36,22 +35,23 @@ public class FramesFAQTest {
 
     }
     @Test
-    public void whatHappensIfIDoNotSwitchTo(){
+    public void switchToFrameExample(){
+
         assertEquals("Frameset Example Title (Example 6)",driver.getTitle());
 
-        // If you remove the switchTo then it won't find the element below
-//        driver.switchTo().frame("menu");
-//        driver.findElement(By.cssSelector("a[href='frames_example_1.html']")).click();
+        driver.switchTo().frame("menu");
+        driver.findElement(By.cssSelector("a[href='frames_example_1.html']")).click();
 
-        try{
-            WebElement menuFramesExample1Element = driver.findElement(By.cssSelector("a[href='frames_example_1.html']"));
-            menuFramesExample1Element.click();
-            fail("I did not expect this step to run. Since I didn't expected above step to find this");
+        String titleDefaultContent = "Frameset Example Title (Example 1)";
 
-        }catch(NoSuchElementException e){
-            // ignore the exception we expected
-            e.printStackTrace();
-        }
+        // added for Marionette Driver to force moving frame
+        // not needed for other drivers but it does no harm for other drivers
+        // Note - this is only needed if we are checking the title, not for
+        // any other action
+        driver.switchTo().defaultContent();
+        new WebDriverWait(driver,Driver.DEFAULT_TIMEOUT_SECONDS).
+                until(ExpectedConditions.titleIs(titleDefaultContent));
+
+        assertEquals(titleDefaultContent,driver.getTitle());
     }
-
 }

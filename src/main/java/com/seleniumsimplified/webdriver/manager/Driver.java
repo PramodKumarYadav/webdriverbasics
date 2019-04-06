@@ -24,6 +24,7 @@ public class Driver {
 
     // Select default browser (when user don't select one, or when you want to drive all tests from here)
     private static Browsers browserName = Browsers.HTMLUNIT;
+    public static final long DEFAULT_TIMEOUT_SECONDS = 10;
 
     public static String getBrowserName() {
         return browserName.name();
