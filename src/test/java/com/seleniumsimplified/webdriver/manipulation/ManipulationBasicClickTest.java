@@ -1,5 +1,7 @@
 package com.seleniumsimplified.webdriver.manipulation;
 
+import com.seleniumsimplified.webdriver.manager.Browsers;
+import com.seleniumsimplified.webdriver.manager.Driver;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,13 +30,12 @@ public class ManipulationBasicClickTest {
     private String hostURL = PROTOCOL + "://" + DOMAIN;
 
     static WebDriver driver;
-
     WebDriverWait wait;
 
     @BeforeAll
     public static void createDriver() {
 
-        driver = new ChromeDriver();
+        driver = Driver.getDriver(Browsers.GOOGLECHROME);
     }
 
     @AfterAll
