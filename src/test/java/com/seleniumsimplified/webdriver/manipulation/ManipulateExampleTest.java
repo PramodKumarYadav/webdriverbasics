@@ -25,7 +25,10 @@ public class ManipulateExampleTest {
         driver.get("http://www.compendiumdev.co.uk" +
                 "/selenium/basic_html_form.html");
     }
-
+    @AfterAll
+    public static void quitBrowser(){
+        driver.quit();
+    }
     @Test
     public void simpleInteraction(){
         WebElement checkBox1 = driver.findElement(By.cssSelector("input[value='cb1']"));
@@ -36,9 +39,6 @@ public class ManipulateExampleTest {
     }
 
 
-    @AfterAll
-    public static void quitBrowser(){
-        driver.quit();
-    }
+
 }
 
