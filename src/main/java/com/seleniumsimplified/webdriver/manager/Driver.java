@@ -25,6 +25,7 @@ public class Driver {
     // Select default browser (when user don't select one, or when you want to drive all tests from here)
     private static Browsers browserName = Browsers.HTMLUNIT;
     public static final long DEFAULT_TIMEOUT_SECONDS = 10;
+    private static final String APPIUM_DEVICE_NAME = "";
 
     public static String getBrowserName() {
         return browserName.name();
@@ -64,7 +65,6 @@ public class Driver {
                 //  options.addExtensions(new File("/path/to/extension.crx"));  // If you want to add extensions.
                 options.addArguments("test-type");
                 myDriver = new ChromeDriver(options);
-                browserName = Browsers.GOOGLECHROME;
                 break;
             case "SAUCELABS":
                 // I would like to make the below code more dynamic by adding list of below available items and ...
@@ -78,6 +78,29 @@ public class Driver {
                     myDriver = new RemoteWebDriver(
                             new URL(sauceURL),
                             firefoxCapabilities);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "APPIUM":
+
+                // quick hack code to get appium running
+                // only one env variable, your APPIUM_DEVICE_NAME
+                // so amend code for your local version
+
+                DesiredCapabilities appiumCapabilities = new DesiredCapabilities();
+
+                // the device name can be seen when you do "adb devices"
+                appiumCapabilities.setCapability("deviceName", APPIUM_DEVICE_NAME);
+                appiumCapabilities.setCapability("platformName", Platform.ANDROID);
+                appiumCapabilities.setCapability("app", browserName.name());
+                try {
+                    // add url to environment variables to avoid releasing with source
+                    // Something like this : String appiumURL = System.getenv("APPIUM_URL");
+                    String appiumURL = "http://127.0.0.1:4723/wd/hub";
+                    myDriver = new RemoteWebDriver(
+                            new URL(appiumURL),
+                            appiumCapabilities);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
