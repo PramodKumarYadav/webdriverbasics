@@ -97,7 +97,8 @@ public class Driver {
                 try {
                     // add url to environment variables to avoid releasing with source
                     // Something like this : String appiumURL = System.getenv("APPIUM_URL");
-                    String appiumURL = "http://127.0.0.1:4723/wd/hub";
+                    // My IP address : http://192.168.1.159:4723/wd/hub
+                    String appiumURL = "http://192.168.1.159:4723/wd/hub";
                     myDriver = new RemoteWebDriver(
                             new URL(appiumURL),
                             appiumCapabilities);
